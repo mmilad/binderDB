@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="./request.js"></script>
+    <script>
+        window.onload = function () {
+            var b = new binderDB(),
+                db = b.db,
+                inputElement = document.getElementById('input');
+            
+            var bindings = [
+                {
+                    bind: "hello",
+                    to: {
+                        element: document.getElementById('myTargetDiv'),
+                        property: "innerHTML"
+                    }
+                },{
+                    bind: "myNewStrng",
+                    to: {
+                        element: document.getElementById('output'),
+                        property: "innerHTML"
+                    }
+                }
+            ];
+            bindings.forEach(function(bindingConfig){
+                b.outputBind(bindingConfig);
+            });
+
+            db.hello = "hello world!";
+            inputElement.addEventListener('keyup', function() {
+                db.myNewStrng = inputElement.value;
+                if(inputElement.value === db.hello) {
+                    db.hello = "HI BACK!!"
+                }
+            });
+        };
+    </script>
+</head>
+
+<body>
+<div id="myTargetDiv"></div>
+<input id="input" />
+<a id="output"></a>
+</body>
+
+</html>
